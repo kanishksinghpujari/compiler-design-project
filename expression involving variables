@@ -1,1 +1,137 @@
+//EXPRESSION INVOLVING ADDITION-
 
+.data
+     number1: .word 5 
+     number2: .word 10 // these are in ram
+.text
+     lw $t0,number1($zero) // to load them into the registers
+     lw $t1,number2($zero)
+     
+     add $t2, $t0, $t1     //t2 = t0 + t1
+ 
+     li $v0, 1
+     add $a0, $zero, $t2 // print the value of t2 register
+     syscall
+
+
+//EXPRESSION INVOLVING SUBTRACTION-
+
+.data 
+     number1: .word 20
+     number2: .word 8
+.text
+     lw $s0, number1       #s0 = 20
+     lw $s1, number2       #s1 = 8
+
+     sub $t0, $s0, $s1     #s0 = 20 - 8
+     
+     l1 $v0, 1
+     move $a0, $t0
+     syscall
+
+//EXPRESSION INVOLVING MULTIPLICATION-
+
+.data
+
+
+.text
+     addi $s0, $zero, 10 // VALUES IN REGISTERS WITHOUT BEING THERE IN RAM
+     addi $s1, $zero, 4
+
+     mul $t0, $s0, $s1
+
+     # Display the product.
+
+     li, $v0, 1
+     add $a0, $zero, $t0
+     syscall
+
+
+
+
+.data
+
+
+.text
+      addi $t0, $zero, 2000
+      addi $t1, $zero, 10
+
+      mult $t0, $t1  // RESULT IS STORED IN Lo and hi
+
+      mflo $s0 // move from low to s0
+
+      #Display the product to the screen
+      li $v0, 1
+      add $a0, $zero, $s0
+      syscall
+
+
+
+
+.data
+
+
+.text
+      addi $s0, $zero, 4
+
+      sll $t0, $s0, 2  // multiplies by 2 raised to the power of given constant 
+
+      
+      #Print it!
+      li $v0, 1
+      add $a0, $zero, $t0
+      syscall
+
+
+//EXPRESSION INVOLVING DIVISION
+.data
+
+
+.text
+      addi $t0, $zero, 30
+      addi $t1, $zero, 5
+
+      div $s0, $t0, $t1
+
+
+      # Print it!
+      li $v0, 1
+      add $a0, $zero, $s0
+      syscall
+
+
+
+.data
+
+
+.text
+      addi $t0, $zero, 30
+      addi $t1, $zero, 5
+
+      div $s0, $t0, 10
+
+
+      # Print it!
+      li $v0, 1
+      add $a0, $zero, $s0
+      syscall 
+
+
+
+.data
+
+
+.text
+      addi $t0, $zero, 30
+      addi $t1, $zero, 8
+
+      div $t0, $t1
+
+      mflo $s0   # Quotient
+      mfhi $s1   # Remainder
+
+
+      # Print it!
+      li $v0, 1
+      add $a0, $zero, $s0
+      syscall
