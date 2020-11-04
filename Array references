@@ -24,3 +24,42 @@
        addi $a0 , $t6,0
        syscall   // upon execution 9 will get printed
       
+
+
+FOR 2-D ARRAY:
+.data
+    mdArray:  .word 2,5  //SQUARE MATRIX 2 5
+              .word 3,7                  3 7
+   size :     .word 2
+   .eqv      DATA_SIZE 4 //DEFINING A CONSTANT
+
+.text   
+      main:
+           la $a0, mdarray //LOAD ADRRESS
+           lw $a1,size
+           jal sumDiagonal //FUNCTION
+           move $a0,$v0
+           li $v0,1
+         syscall 
+
+# End the program
+       li $v0,10
+       syscall 
+
+   sumDiagonal: //EXAMPLE FUCTION TO SUM DIAGONAL ELEMENTS
+         li $v0,0 # sum=0
+         li $t0,0 # $t0 as the index 
+
+
+        sumloop: 
+             mul $t1,$t0,$a1              # t1=rowindex*colsize
+             add $t1,$t1,$t0               #            +colIndex
+            mul $t1,$t1   DATA_SIZE       # *DATA_SIZE
+            add  $t1,$t1,$a0               #  + base address
+
+           lw $t2,($t1)
+           add $v0,$v0,$t2                 # sum =sum+mdArray[i][i] 
+
+           addi  $t0,$t0,1                 # i=i+1
+           blt $t0,$a1,sumloop             # if i <size ,then loop again.
+        jr $ra  
