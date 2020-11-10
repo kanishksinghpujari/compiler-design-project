@@ -1,28 +1,24 @@
-.data 
-    ourArray  .space 8    // 8 bytes means two int
-
+.data
+     myArray: .space 12
 .text
-    addi $s0 ,#zero,9
-    addi $s1 ,#zero,17
-    addi $s2 ,#zero,90   // for assignment in ram
-
-      # Index = $t0      // for array indexing
-      addi $t0, $zero, 0
- 
-       sw $s0 ,ourArray($t0)      // to store values at index
-
-       addi $t0 ,$t0 ,4 //inorder to move 4 bits forward
-
-       sw $s1 ,ourArray($t0) 
-      
-        addi $t0 ,$t0 ,4 
-
-         sw $s2 ,ourArray($t0) 
-
-       lw $t6 , ourArray($zero)
-       li $v0, 1
-       addi $a0 , $t6,0
-       syscall   // upon execution 9 will get printed
+     addi $s0, $zero, 4
+     addi $s1, $zero, 10
+     addi $s2, $zero, 12
+     
+     #Index = $t0
+     addi $t0, $zero, 0
+     
+     sw $s0, myArray($t0)
+     	addi $t0, $t0, 4
+     sw $s1, myArray($t0)
+     	addi $t0, $t0, 4
+     sw $s2, myArray($t0)
+     
+     lw $t6, myArray($zero)
+     
+     li $v0, 1
+     addi $a0, $t6, 0
+     syscall
       
 
 
